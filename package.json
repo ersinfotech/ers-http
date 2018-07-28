@@ -1,0 +1,31 @@
+{
+  "name": "ers-http",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ersinfotech/ers-http.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ersinfotech/ers-http/issues"
+  },
+  "homepage": "https://github.com/ersinfotech/ers-http#readme",
+  "dependencies": {
+    "@ersinfotech/graphiql-auth": "^1.0.0",
+    "@ersinfotech/restrict": "^1.1.0",
+    "bunyan": "^1.8.12",
+    "cors": "^2.8.4",
+    "ers-graphql": "^1.0.0",
+    "express": "^4.16.3",
+    "graphql-ready": "^1.0.0",
+    "multer": "^1.3.1",
+    "numeral": "^2.0.6"
+  }
+}
