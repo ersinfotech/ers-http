@@ -19,7 +19,7 @@ const graphql = (logger) => {
 
     logger.info('graphql started')
 
-    return {api, logger}
+    return {api, schema}
 }
 
 const restful = (logger, router) => {
