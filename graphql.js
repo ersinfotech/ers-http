@@ -1,13 +1,8 @@
 
 const {graphiql} = require('graphql-ready')
-const Restrict = require('@ersinfotech/restrict')
 const GraphiqlAuth = require('@ersinfotech/graphiql-auth')
 
-module.exports = (app, config, {schema, api}) => {
-
-    const restrict = Restrict({
-      baseUrl: config.eadmin.baseUrl,
-    })
+module.exports = (app, config, {schema, api}, restrict) => {
 
     const graphLogin = (callbackUrl) => GraphiqlAuth({
       eadminBaseUrl: config.eadmin.baseUrl,

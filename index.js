@@ -5,6 +5,7 @@ const cors = require('cors')
 const multer = require('multer')
 const bunyan = require('bunyan')
 const numeral = require('numeral')
+const Restrict = require('@ersinfotech/restrict')
 const graphql = require('./graphql')
 
 module.exports = (config, options) => {
@@ -42,17 +43,21 @@ module.exports = (config, options) => {
     .use(express.urlencoded({limit, extended: true}))
     .use(multer({limits: {fileSize}}).any())
 
+    const restrict = Restrict({
+      baseUrl: config.eadmin.baseUrl,
+    })
+
     if (options.graphql) {
         const gapi = require('express').Router()
         const goptions = options.graphql(logger, gapi)
-        graphql(gapi, config, goptions)
+        graphql(gapi, config, goptions, restrict)
         app.use('/graphql', gapi)
     }
 
     if (options.restful) {
         const rapi = require('express').Router()
         options.restful(logger, rapi)
-        app.use('/api', rapi)
+        app.use('/api', restrict(), rapi)
     }
 
     if (options.public) {
