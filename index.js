@@ -74,10 +74,11 @@ module.exports = (config, options) => {
 
     const time = process.hrtime()
     const port = config.http && config.http.port || process.env.PORT || 3000
+    const version = process.version
 
     server.listen(port, () => {
       const diff = process.hrtime(time)
       const second = (diff[0] * 1e9 + diff[1]) / 1e9
-      logger.info(`http service is listening on port ${port} in ${process.env.NODE_ENV} mode used ${numeral(second).format('0.00')} seconds`)
+      logger.info(`[${version}] http service is listening on port ${port} in ${process.env.NODE_ENV} mode used ${numeral(second).format('0.00')} seconds`)
     })
 }
