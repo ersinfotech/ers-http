@@ -26,6 +26,10 @@ const restful = (logger, router) => {
     router.use('/hello', (req, res) => res.end('world'))
 }
 
+const unrestrict = (logger, router) => {
+    router.use('/999', (req, res) => res.end('666'))
+}
+
 const config = {
     clientId: 'miner',
     eadmin: {
@@ -36,4 +40,5 @@ const config = {
 http(config, {
     graphql,
     restful,
+    unrestrict,
 })

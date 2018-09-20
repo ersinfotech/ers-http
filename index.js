@@ -64,6 +64,12 @@ module.exports = (config, options) => {
         app.use('/public', express.static(options.public))
     }
 
+    if (options.unrestrict) {
+        const rapi = require('express').Router()
+        options.unrestrict(logger, rapi)
+        app.use('/', rapi)
+    }
+
     app.use(error)
 
     const server = http.Server(app)
