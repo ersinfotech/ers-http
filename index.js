@@ -1,6 +1,7 @@
 
 const http = require('http')
 const express = require('express')
+const bodyParser = require('body-parser')
 const cors = require('cors')
 const multer = require('multer')
 const bunyan = require('bunyan')
@@ -39,8 +40,9 @@ module.exports = (config, options) => {
 
     const app = express()
     .use(cors())
-    .use(express.json({limit}))
-    .use(express.urlencoded({limit, extended: true}))
+    .use(bodyParser.json({limit}))
+    .use(bodyParser.urlencoded({limit, extended: true}))
+    .use(bodyParser.text({limit, type: 'text/*'}))
     .use(multer({limits: {fileSize}}).any())
 
     const restrict = Restrict({
