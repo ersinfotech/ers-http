@@ -77,7 +77,8 @@ module.exports = (config, options) => {
     const server = http.Server(app)
 
     if (options.io) {
-        options.io(server)
+        const io = require('socket.io')(server)
+        options.io(io)
     }
 
     const time = process.hrtime()
