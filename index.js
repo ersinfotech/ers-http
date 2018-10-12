@@ -78,7 +78,14 @@ module.exports = (config, options) => {
 
     if (options.io) {
         const io = require('socket.io')(server)
-        options.io(io)
+
+        if (options.redis) {
+            const redisAdapter = require('socket.io-redis')
+            io.adapter(redisAdapter(options.redis))
+        }
+        options.io(logger, io)
+
+        global.IO = io
     }
 
     const time = process.hrtime()

@@ -1,6 +1,6 @@
 {
   "name": "ers-http",
-  "version": "4.2.0",
+  "version": "4.3.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,8 @@
     "graphql-ready": "^1.0.0",
     "multer": "^1.3.1",
     "numeral": "^2.0.6",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.1.1",
+    "socket.io-redis": "^5.2.0"
   },
   "devDependencies": {
     "node-dev": "^3.1.3"
