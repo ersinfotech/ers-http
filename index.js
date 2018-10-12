@@ -6,7 +6,7 @@ const cors = require('cors')
 const multer = require('multer')
 const bunyan = require('bunyan')
 const numeral = require('numeral')
-const Restrict = require('@ersinfotech/restrict')
+const Restrict = require('./restrict')
 const graphql = require('./graphql')
 
 module.exports = (config, options) => {
@@ -83,6 +83,12 @@ module.exports = (config, options) => {
             const redisAdapter = require('socket.io-redis')
             io.adapter(redisAdapter(options.redis))
         }
+
+        app.get('/socket.html', (req, res) => {
+            res.sendFile(__dirname + '/socket.html')
+        })
+
+        io.use(restrict())
         options.io(logger, io)
 
         global.IO = io

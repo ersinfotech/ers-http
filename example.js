@@ -30,6 +30,13 @@ const unrestrict = (logger, router) => {
     router.use('/999', (req, res) => res.end('666'))
 }
 
+const io = (logger, IO) => {
+    IO.on('connection', socket => {
+        console.log('connected')
+        socket.emit('hello', 'hello world')
+    })
+}
+
 const config = {
     clientId: 'miner',
     eadmin: {
@@ -41,4 +48,5 @@ http(config, {
     graphql,
     restful,
     unrestrict,
+    io,
 })

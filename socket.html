@@ -1,0 +1,7 @@
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const connect = (access_token) => {
+        const socket = io(`?access_token=${encodeURIComponent(access_token)}`)
+        socket.on('hello', console.log)
+    }
+</script>
