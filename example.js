@@ -4,8 +4,19 @@ const http = require('.')
 const schema = `
 scalar JSON
 
+type Group {
+    userId: String
+    userName: String
+}
+
+type Groups {
+    count: Int
+    data: [Group]
+}
+
 type Query {
     echo(message: JSON!): JSON
+    groups: Groups
 }
 `
 
@@ -15,11 +26,25 @@ const api = {
     }
 }
 
+const resolver = {
+    Query: {
+        groups () {
+            console.log('abc')
+            return {count: 2, data: [{userId: 'userId'}]}
+        },
+    },
+    Group: {
+        userName (group) {
+            return `${group.userId}-userName`
+        }
+    },
+}
+
 const graphql = (logger) => {
 
     logger.info('graphql started')
 
-    return {api, schema}
+    return {api, schema, resolver}
 }
 
 const restful = (logger, router) => {

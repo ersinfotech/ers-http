@@ -2,7 +2,7 @@
 const {graphiql} = require('graphql-ready')
 const GraphiqlAuth = require('@ersinfotech/graphiql-auth')
 
-module.exports = (app, config, {schema, api}, restrict) => {
+module.exports = (app, config, {schema, api, resolver}, restrict) => {
 
     const graphLogin = (callbackUrl) => GraphiqlAuth({
       eadminBaseUrl: config.eadmin.baseUrl,
@@ -24,7 +24,7 @@ module.exports = (app, config, {schema, api}, restrict) => {
     .get(graphin.get)
     .post(graphin.post)
 
-    const graphql = graphiql({schema, api})
+    const graphql = graphiql({schema, api, resolver})
 
     app.use('/', graphiqlGetNotFound, restrict(), graphql)
 }
