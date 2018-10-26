@@ -46,11 +46,8 @@ const graphql = (logger) => {
     return {api, schema, resolver}
 }
 
-const restful = (logger, router) => {
-    router.use('/hello', (req, res) => res.end('world'))
-}
-
-const unrestrict = (logger, router) => {
+const restful = (logger, router, restrict) => {
+    router.use('/hello', restrict(), (req, res) => res.end('world'))
     router.use('/999', (req, res) => res.end('666'))
 }
 
@@ -71,6 +68,5 @@ const config = {
 http(config, {
     graphql,
     restful,
-    unrestrict,
     io,
 })

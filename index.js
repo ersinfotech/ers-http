@@ -58,18 +58,12 @@ module.exports = (config, options) => {
 
     if (options.restful) {
         const rapi = require('express').Router()
-        options.restful(logger, rapi)
-        app.use('/api', restrict(), rapi)
+        options.restful(logger, rapi, restrict)
+        app.use('/', rapi)
     }
 
     if (options.public) {
         app.use('/public', express.static(options.public))
-    }
-
-    if (options.unrestrict) {
-        const rapi = require('express').Router()
-        options.unrestrict(logger, rapi)
-        app.use('/', rapi)
     }
 
     app.use(error)
