@@ -11,6 +11,8 @@ module.exports = (options = {}) => {
 
     return () => (req, res, next) => {
 
+        const error = (message) => next(new Error(message))
+
         let query = req.query || {}
 
         if (req.handshake) {
@@ -20,12 +22,12 @@ module.exports = (options = {}) => {
 
         const access_token = query.access_token
 
-        if (!access_token) return next('access_token invalid')
+        if (!access_token) return error('access_token required')
 
         request.get(baseUrl + '/account/me/id')
             .query({access_token})
             .then(res => {
-                if (res.error) return next('access_token invalid')
+                if (res.error) return error('access_token invalid')
 
                 const data = res.body || {}
 
@@ -41,6 +43,6 @@ module.exports = (options = {}) => {
 
                 next()
             })
-            .catch(e => next('access_token fetching error'))
+            .catch(e => error('access_token fetching error'))
     }
 }
