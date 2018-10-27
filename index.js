@@ -8,6 +8,7 @@ const bunyan = require('bunyan')
 const numeral = require('numeral')
 const Restrict = require('./restrict')
 const graphql = require('./graphql')
+const MP = require('./middleware-promise')
 
 module.exports = (config, options) => {
 
@@ -57,6 +58,7 @@ module.exports = (config, options) => {
     }
 
     if (options.restful) {
+        global.MP = MP
         const rapi = require('express').Router()
         options.restful(logger, rapi, restrict)
         app.use('/', rapi)
