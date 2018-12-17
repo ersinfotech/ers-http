@@ -40,6 +40,9 @@ module.exports = (config, options) => {
     }
 
     const app = express()
+    app.enable('trust proxy')
+
+    app
     .use(cors())
     .use(bodyParser.json({limit}))
     .use(bodyParser.urlencoded({limit, extended: true}))
