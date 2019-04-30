@@ -24,10 +24,8 @@ module.exports = (options = {}) => {
       qs: { access_token },
       json: true,
     })
-      .then(res => {
-        if (res.error) return error('access_token invalid')
-
-        const data = res.body || {}
+      .then(body => {
+        const data = body || {}
 
         req.session = {
           ...req.session,
@@ -36,11 +34,12 @@ module.exports = (options = {}) => {
           productId: String(data.product_id),
           roleId: String(data.role_id),
           lang: data.lang,
+          paid: data.paid,
           accessToken: access_token,
         }
 
         next()
       })
-      .catch(e => error('access_token fetching error'))
+      .catch(e => error('access_token invalid'))
   }
 }
