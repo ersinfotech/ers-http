@@ -30,6 +30,7 @@ module.exports = (config, options) => {
     })
 
     const fileSize = options.uploadFileSize || 5 * 1024 * 1024 // 5mb
+    const fileDest = options.uploadFileDest
     const limit = options.postBodySize || '50mb'
 
     const error = (err, req, res, next) => {
@@ -47,7 +48,7 @@ module.exports = (config, options) => {
     .use(bodyParser.json({limit}))
     .use(bodyParser.urlencoded({limit, extended: true}))
     .use(bodyParser.text({limit, type: 'text/*'}))
-    .use(multer({limits: {fileSize}}).any())
+    .use(multer({limits: {fileSize}, dest: fileDest}).any())
 
     const restrict = Restrict({
       baseUrl: config.eadmin.baseUrl,
