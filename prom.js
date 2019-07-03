@@ -2,17 +2,6 @@
 const onFinished = require('on-finished')
 const Prometheus = require('prom-client')
 
-const up = new Prometheus.Gauge({
-  name: 'up',
-  help: '1 = up, 0 = not up'
-});
-
-const requestCount = new Prometheus.Counter({
-  name: 'http_requests_total',
-  help: 'Counter for total requests received',
-  labelNames: ['route', 'method', 'status'],
-});
-
 function requestDurationGenerator (buckets) {
   return new Prometheus.Histogram({
     name: 'http_request_duration_seconds',
@@ -22,7 +11,7 @@ function requestDurationGenerator (buckets) {
   });
 }
 
-module.exports = (app) => {
+module.exports = (app, options = {}) => {
 
     const metricsPath = '/metrics'
 
@@ -33,34 +22,28 @@ module.exports = (app) => {
 
     app.locals.Prometheus = Prometheus
 
-    Prometheus.collectDefaultMetrics()
+    // Prometheus.collectDefaultMetrics()
 
-    up.set(1)
-
-    const requestDurationBuckets = [ 0.05, 0.1, 0.3, 0.5, 0.8, 1, 1.5, 2, 3, 5, 10 ]
+    const requestDurationBuckets = [ 1, 5, 10, 30, 60 ]
 
     const requestDuration = requestDurationGenerator(requestDurationBuckets)
 
-    const ResponseTime = (handler) => (req, res, next) => {
-        const start = Date.now()
+    const red = (req, res, next) => {
+
+        const end = requestDuration.startTimer()
 
         onFinished(res, () => {
-            const time = Date.now() - start
-            handler(req, res, time)
+
+            let { statusCode: status } = res
+            let { baseUrl: route = status, method } = req
+
+            if (route === '') route = '/'
+
+            end({route, method, status})
         })
 
         next()
     }
-
-    const red = ResponseTime((req, res, time) => {
-
-        const { statusCode: status } = res
-        const { baseUrl: route = status, method } = req
-
-        requestCount.inc({ route, method, status })
-
-        requestDuration.labels(route, method, status).observe( time )
-    })
 
     app.use(red)
 

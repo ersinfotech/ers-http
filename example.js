@@ -15,16 +15,21 @@ type Groups {
 
 type Query {
     error: JSON
-    echo(message: JSON!): JSON
+    echo(message: JSON!, delaySeconds: Int): JSON
     groups: Groups
 }
 `
+
+const delay = (wait = 1) => new Promise(resolve => setTimeout(resolve, wait * 1000))
 
 const api = {
     error () {
         throw new Error('error happened')
     },
-    echo ({message}) {
+    async echo ({message, delaySeconds}) {
+        if (delaySeconds) {
+            await delay(delaySeconds)
+        }
         return message
     },
 }
