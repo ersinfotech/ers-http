@@ -22,7 +22,7 @@ module.exports = (app, options = {}) => {
 
     app.locals.Prometheus = Prometheus
 
-    // Prometheus.collectDefaultMetrics()
+    Prometheus.collectDefaultMetrics()
 
     const requestDurationBuckets = [ 1, 5, 10, 30, 60 ]
 
