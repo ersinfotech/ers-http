@@ -9,6 +9,7 @@ const numeral = require('numeral')
 const Restrict = require('./restrict')
 const graphql = require('./graphql')
 const MP = require('./middleware-promise')
+const prom = require('./prom')
 
 module.exports = (config, options) => {
 
@@ -49,6 +50,8 @@ module.exports = (config, options) => {
     .use(bodyParser.urlencoded({limit, extended: true}))
     .use(bodyParser.text({limit, type: 'text/*'}))
     .use(multer({limits: {fileSize}, dest: fileDest}).any())
+
+    prom(app)
 
     const restrict = Restrict({
       baseUrl: config.eadmin.baseUrl,

@@ -2,7 +2,6 @@
 const http = require('.')
 
 const schema = `
-scalar JSON
 
 type Group {
     userId: String
