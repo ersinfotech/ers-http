@@ -35,9 +35,9 @@ module.exports = (app, options = {}) => {
         onFinished(res, () => {
 
             let { statusCode: status } = res
-            let { baseUrl: route = status, method } = req
+            let { baseUrl: route, method } = req
 
-            if (route === '') route = '/'
+            route = route || req.path
 
             end({route, method, status})
         })

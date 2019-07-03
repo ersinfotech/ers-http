@@ -44,14 +44,14 @@ module.exports = (config, options) => {
     const app = express()
     app.enable('trust proxy')
 
+    prom(app)
+
     app
     .use(cors())
     .use(bodyParser.json({limit}))
     .use(bodyParser.urlencoded({limit, extended: true}))
     .use(bodyParser.text({limit, type: 'text/*'}))
     .use(multer({limits: {fileSize}, dest: fileDest}).any())
-
-    prom(app)
 
     const restrict = Restrict({
       baseUrl: config.eadmin.baseUrl,
