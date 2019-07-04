@@ -9,7 +9,7 @@ const numeral = require('numeral')
 const Restrict = require('./restrict')
 const graphql = require('./graphql')
 const MP = require('./middleware-promise')
-const prom = require('./prom')
+const prom = require('ers-prom')
 
 module.exports = (config, options) => {
 
@@ -44,7 +44,7 @@ module.exports = (config, options) => {
     const app = express()
     app.enable('trust proxy')
 
-    prom(app)
+    prom(app, options.prom)
 
     app
     .use(cors())
@@ -53,7 +53,7 @@ module.exports = (config, options) => {
     .use(bodyParser.text({limit, type: 'text/*'}))
     .use(multer({limits: {fileSize}, dest: fileDest}).any())
 
-    const restrict = Restrict({
+    const restrict = options.restrict || Restrict({
       baseUrl: config.eadmin.baseUrl,
     })
 
