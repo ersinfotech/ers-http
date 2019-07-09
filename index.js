@@ -57,18 +57,18 @@ module.exports = (config, options) => {
       baseUrl: config.eadmin.baseUrl,
     })
 
-    if (options.graphql) {
-        const gapi = require('express').Router()
-        const goptions = options.graphql(logger, gapi)
-        graphql(gapi, config, goptions, restrict)
-        app.use('/graphql', gapi)
-    }
-
     if (options.restful) {
         global.MP = MP
         const rapi = require('express').Router()
         options.restful(logger, rapi, restrict)
         app.use('/', rapi)
+    }
+
+    if (options.graphql) {
+        const gapi = require('express').Router()
+        const goptions = options.graphql(logger, gapi)
+        graphql(gapi, config, goptions, restrict)
+        app.use('/graphql', gapi)
     }
 
     if (options.public) {
