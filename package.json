@@ -33,6 +33,7 @@
     "socket.io-redis": "^5.2.0"
   },
   "devDependencies": {
-    "node-dev": "^4.0.0"
+    "node-dev": "^4.0.0",
+    "pug": "^2.0.4"
   }
 }

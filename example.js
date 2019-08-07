@@ -55,6 +55,12 @@ const graphql = (logger) => {
 }
 
 const restful = (logger, router, restrict) => {
+    router.get('/', (req, res) => {
+        res.render('index', {
+            title: 'ERS HTTP',
+            message: 'what a good news!',
+        })
+    })
     router.use('/hello', restrict(), (req, res) => res.end('world'))
     router.use('/999', (req, res) => res.end('666'))
 }
@@ -74,6 +80,7 @@ const config = {
 }
 
 http(config, {
+    'view engine': 'pug',
     graphql,
     restful,
     io,

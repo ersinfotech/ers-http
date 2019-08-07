@@ -43,6 +43,10 @@ module.exports = (config, options) => {
   const app = express()
   app.enable('trust proxy')
 
+    if (options['view engine']) {
+        app.set('view engine', options['view engine'])
+    }
+
   prom(app, options.prom, config.consul)
 
   app
