@@ -20,18 +20,19 @@ module.exports = (config, options) => {
       : [{ stream: process.stdout }]
 
   const logger = bunyan.createLogger({ name, streams })
-  process.on('uncaughtException', err => {
+  process.on('uncaughtException', (err) => {
     logger.fatal(err)
     process.exit()
   })
 
-  process.on('unhandledRejection', err => {
+  process.on('unhandledRejection', (err) => {
     logger.error(err)
   })
 
   const fileSize = options.uploadFileSize || 5 * 1024 * 1024 // 5mb
   const fileDest = options.uploadFileDest
   const limit = options.postBodySize || '50mb'
+  const bodyParserConfig = options.bodyParserConfig || {}
 
   const error = (err, req, res, next) => {
     res.status(500)
@@ -43,18 +44,30 @@ module.exports = (config, options) => {
   const app = express()
   app.enable('trust proxy')
 
-    if (options['view engine']) {
-        app.set('view engine', options['view engine'])
-    }
+  if (options['view engine']) {
+    app.set('view engine', options['view engine'])
+  }
 
   prom(app, options.prom, config.consul)
 
   app
     .use(cors())
-    .use(bodyParser.json({ limit }))
-    .use(bodyParser.urlencoded({ limit, extended: true }))
-    .use(bodyParser.text({ limit, type: 'text/*' }))
-    .use(multer({ limits: { fileSize }, dest: fileDest }).any())
+    .use(bodyParser.json({ limit, ...bodyParserConfig.json }))
+    .use(
+      bodyParser.urlencoded({
+        limit,
+        extended: true,
+        ...bodyParserConfig.urlencoded,
+      })
+    )
+    .use(bodyParser.text({ limit, type: 'text/*', ...bodyParserConfig.text }))
+    .use(
+      multer({
+        limits: { fileSize },
+        dest: fileDest,
+        ...bodyParserConfig.multer,
+      }).any()
+    )
 
   const restrict =
     options.restrict ||
