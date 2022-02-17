@@ -5,7 +5,7 @@ const cors = require('cors')
 const multer = require('multer')
 const bunyan = require('bunyan')
 const numeral = require('numeral')
-const Restrict = require('./restrict')
+const Restrict = require('@ersinfotech/restrict')
 const graphql = require('./graphql')
 const MP = require('./middleware-promise')
 const prom = require('ers-prom')
@@ -69,11 +69,7 @@ module.exports = (config, options) => {
       }).any()
     )
 
-  const restrict =
-    options.restrict ||
-    Restrict({
-      baseUrl: config.eadmin.baseUrl,
-    })
+  const restrict = options.restrict || Restrict(config.eadmin)
 
   if (options.restful) {
     global.MP = MP

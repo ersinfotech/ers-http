@@ -1,6 +1,6 @@
 {
   "name": "ers-http",
-  "version": "7.1.0",
+  "version": "7.2.0",
   "description": "quick http for ers",
   "main": "index.js",
   "scripts": {
@@ -19,6 +19,7 @@
   "homepage": "https://github.com/ersinfotech/ers-http#readme",
   "dependencies": {
     "@ersinfotech/graphiql-auth": "^1.0.0",
+    "@ersinfotech/restrict": "^4.1.0",
     "body-parser": "^1.19.0",
     "bunyan": "^1.8.14",
     "cors": "^2.8.5",
