@@ -84,5 +84,8 @@ http(config, {
     graphql,
     restful,
     io,
-    // redis: 'localhost:6379',
+    // redis: {
+    //     host: 'localhost',
+    //     port: 6379,
+    // },
 })
