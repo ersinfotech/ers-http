@@ -3,8 +3,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const multer = require('multer')
-const bunyan = require('bunyan')
-const numeral = require('numeral')
 const Restrict = require('@ersinfotech/restrict')
 const graphql = require('./graphql')
 const MP = require('./middleware-promise')
@@ -19,9 +17,10 @@ module.exports = (config, options) => {
       ? [{ stream: process.stdout }, { path: config.logPath }]
       : [{ stream: process.stdout }]
 
-  const logger = bunyan.createLogger({ name, streams })
+  const logger = console
+
   process.on('uncaughtException', (err) => {
-    logger.fatal(err)
+    logger.error(err)
     process.exit()
   })
 
@@ -94,18 +93,30 @@ module.exports = (config, options) => {
   const server = http.Server(app)
 
   if (options.io) {
-    const io = require('socket.io')(server)
+    const io = require('socket.io')(server, {allowEIO3: true})
 
     if (options.redis) {
-      const redisAdapter = require('socket.io-redis')
-      io.adapter(redisAdapter(options.redis))
+        const { createClient } = require('redis')
+        const { createAdapter } = require('@socket.io/redis-adapter')
+
+        const pubClient = createClient(options.redis)
+        const subClient = pubClient.duplicate()
+
+        io.adapter(createAdapter(pubClient, subClient))
     }
 
     app.get('/socket.html', (req, res) => {
       res.sendFile(__dirname + '/socket.html')
     })
 
-    io.use(restrict())
+    io.use((socket, next) => {
+        const query = socket.handshake.query
+        const { access_token } = query
+        if (!access_token) {
+            return next(new Error('access_token required'))
+        }
+        next()
+    })
     options.io(logger, io)
 
     global.IO = io
@@ -118,10 +129,6 @@ module.exports = (config, options) => {
   server.listen(port, () => {
     const diff = process.hrtime(time)
     const second = (diff[0] * 1e9 + diff[1]) / 1e9
-    logger.info(
-      `[${version}] http service is listening on port ${port} in ${
-        process.env.NODE_ENV
-      } mode used ${numeral(second).format('0.00')} seconds`
-    )
+    logger.log('\x1b[36m%s\x1b[0m', `[${version}] [${name}] http service is listening on port ${port} in ${process.env.NODE_ENV} mode used ${second.toFixed(2)} seconds`)
   })
 }
