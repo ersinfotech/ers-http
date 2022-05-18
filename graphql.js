@@ -1,6 +1,6 @@
 
 const {graphiql} = require('graphql-ready')
-const GraphiqlAuth = require('@ersinfotech/graphiql-auth')
+const GraphiqlAuth = require('./@ersinfotech/graphiql-auth')
 
 module.exports = (app, config, {schema, api, resolver, gql = []}, restrict) => {
 
