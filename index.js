@@ -12,11 +12,6 @@ module.exports = (config, options) => {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development'
   const name = config.clientId || 'clientId'
 
-  const streams =
-    process.env.NODE_ENV === 'production' && config.logPath
-      ? [{ stream: process.stdout }, { path: config.logPath }]
-      : [{ stream: process.stdout }]
-
   const logger = console
 
   process.on('uncaughtException', (err) => {
