@@ -124,6 +124,6 @@ module.exports = (config, options) => {
   server.listen(port, () => {
     const diff = process.hrtime(time)
     const second = (diff[0] * 1e9 + diff[1]) / 1e9
-    logger.log('\x1b[36m%s\x1b[0m', `[${version}] [${name}] http service is listening on port ${port} in ${process.env.NODE_ENV} mode used ${second.toFixed(2)} seconds`)
+    logger.log('\x1b[36m%s\x1b[0m', `[${version}] [${name}] [${new Date().toLocaleString()}] http service is listening on port ${port} in ${process.env.NODE_ENV} mode used ${second.toFixed(2)} seconds`)
   })
 }
