@@ -1,6 +1,6 @@
 {
   "name": "ers-http",
-  "version": "8.1.4",
+  "version": "8.1.5",
   "description": "quick http for ers",
   "main": "index.js",
   "scripts": {
