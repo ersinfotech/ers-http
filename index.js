@@ -3,6 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const multer = require('multer')
+const serverTiming = require('server-timing')
 const Restrict = require('./@ersinfotech/restrict')
 const graphql = require('./graphql')
 const MP = require('./middleware-promise')
@@ -46,6 +47,7 @@ module.exports = (config, options) => {
 
   app
     .use(cors())
+    .use(serverTiming())
     .use(bodyParser.json({ limit, ...bodyParserConfig.json }))
     .use(
       bodyParser.urlencoded({
@@ -88,7 +90,7 @@ module.exports = (config, options) => {
   const server = http.Server(app)
 
   if (options.io) {
-    const io = require('socket.io')(server, {allowEIO3: true})
+    const io = require('socket.io')(server, options.ioOption)
 
     if (options.redis) {
         const { createClient } = require('redis')
