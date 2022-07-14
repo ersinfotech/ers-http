@@ -26,7 +26,7 @@ const api = {
     error () {
         throw new Error('error happened')
     },
-    async echo ({message, delaySeconds}) {
+    async echo ({message, delaySeconds}, { session }) {
         if (delaySeconds) {
             await delay(delaySeconds)
         }
