@@ -30,6 +30,7 @@ const api = {
         if (delaySeconds) {
             await delay(delaySeconds)
         }
+        console.log({message})
         return message
     },
 }
