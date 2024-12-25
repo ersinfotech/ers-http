@@ -7,7 +7,6 @@ const serverTiming = require('server-timing')
 const Restrict = require('./@ersinfotech/restrict')
 const graphql = require('./graphql')
 const MP = require('./middleware-promise')
-const prom = require('ers-prom')
 
 module.exports = (config, options) => {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development'
@@ -43,7 +42,6 @@ module.exports = (config, options) => {
     app.set('view engine', options['view engine'])
   }
 
-  prom(app, options.prom, config.consul)
 
   app
     .use(cors())
