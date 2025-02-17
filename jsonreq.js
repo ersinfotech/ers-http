@@ -7,6 +7,7 @@ const jsonreq = (params = {}) => new Promise((resolve, reject) => {
     const {
         protocol,
         hostname,
+        port,
         path,
     } = url.parse(params.url)
 
@@ -24,6 +25,7 @@ const jsonreq = (params = {}) => new Promise((resolve, reject) => {
 
     let options = {
         hostname,
+        port,
         path,
         method: 'GET',
         headers: {
