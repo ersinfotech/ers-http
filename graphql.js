@@ -14,6 +14,8 @@ module.exports = (app, config, {schema, api, resolver, gql = []}, restrict) => {
       const re = new RegExp(`${req.baseUrl}/login$`)
       if (req.method === 'GET' && !re.test(req.headers.referer)) {
         return res.status(404).end('Not Found')
+      } else if (req.method === 'POST' && /__schema/.test(req.body.query) && !/ers-http=\d+/.test(req.headers.cookie)) {
+        return res.status(400).end('Not Found')
       }
       next()
     }

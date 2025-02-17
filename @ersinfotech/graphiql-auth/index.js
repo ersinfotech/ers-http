@@ -19,6 +19,10 @@ module.exports = ({
       },
     })
     .then(({access_token}) => {
+      res.cookie('ers-http', Date.now(), {
+        httpOnly: true,
+        sameSite: true,
+      })
       res.redirect(callbackUrl + `?access_token=${access_token}`)
     })
     .catch(() => {
