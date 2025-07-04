@@ -1,4 +1,3 @@
-
 const http = require('.')
 
 const schema = `
@@ -20,73 +19,65 @@ type Query {
 }
 `
 
-const delay = (wait = 1) => new Promise(resolve => setTimeout(resolve, wait * 1000))
+const delay = (wait = 1) =>
+  new Promise((resolve) => setTimeout(resolve, wait * 1000))
 
 const api = {
-    error () {
-        throw new Error('error happened')
-    },
-    async echo ({message, delaySeconds}, { session }) {
-        if (delaySeconds) {
-            await delay(delaySeconds)
-        }
-        console.log({message})
-        return message
-    },
+  error() {
+    throw new Error('error happened')
+  },
+  async echo({ message, delaySeconds }, { session }) {
+    if (delaySeconds) {
+      await delay(delaySeconds)
+    }
+    console.log({ message })
+    return message
+  },
 }
 
 const resolver = {
-    Query: {
-        groups () {
-            return {count: 2, data: [{userId: 'userId'}]}
-        },
+  Query: {
+    groups() {
+      return { count: 2, data: [{ userId: 'userId' }] }
     },
-    Group: {
-        userName (group) {
-            return `${group.userId}-userName`
-        }
+  },
+  Group: {
+    userName(group) {
+      return `${group.userId}-userName`
     },
+  },
 }
 
 const graphql = (logger) => {
+  logger.info('graphql started')
 
-    logger.info('graphql started')
-
-    return {api, schema, resolver}
+  return { api, schema, resolver }
 }
 
 const restful = (logger, router, restrict) => {
-    router.get('/', (req, res) => {
-        res.render('index', {
-            title: 'ERS HTTP',
-            message: 'what a good news!',
-        })
+  router.get('/', (req, res) => {
+    res.render('index', {
+      title: 'ERS HTTP',
+      message: 'what a good news!',
     })
-    router.use('/hello', restrict(), (req, res) => res.end('world'))
-    router.use('/999', (req, res) => res.end('666'))
+  })
+  router.use('/hello', restrict(), (req, res) => res.end('world'))
+  router.use('/999', (req, res) => res.end('666'))
 }
 
-const io = (logger, IO) => {
-    IO.on('connection', socket => {
-        console.log('connected')
-        socket.emit('hello', 'hello world')
-    })
+const io = (logger, server, restrict) => {
+  console.log('io server')
 }
 
 const config = {
-    clientId: 'miner',
-    eadmin: {
-        baseUrl: 'http://eadmin-api.ersinfotech.com',
-    },
+  clientId: 'miner',
+  eadmin: {
+    baseUrl: 'http://eadmin-api.ersinfotech.com',
+  },
 }
 
 http(config, {
-    'view engine': 'pug',
-    graphql,
-    restful,
-    io,
-    // redis: {
-    //     host: 'localhost',
-    //     port: 6379,
-    // },
+  graphql,
+  restful,
+  io,
 })

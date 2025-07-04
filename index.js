@@ -3,10 +3,8 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const multer = require('multer')
-const serverTiming = require('server-timing')
 const Restrict = require('./@ersinfotech/restrict')
 const graphql = require('./graphql')
-const MP = require('./middleware-promise')
 
 module.exports = (config, options) => {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development'
@@ -42,17 +40,15 @@ module.exports = (config, options) => {
     app.set('view engine', options['view engine'])
   }
 
-
   app
     .use(cors())
-    .use(serverTiming())
     .use(bodyParser.json({ limit, ...bodyParserConfig.json }))
     .use(
       bodyParser.urlencoded({
         limit,
         extended: true,
         ...bodyParserConfig.urlencoded,
-      })
+      }),
     )
     .use(bodyParser.text({ limit, type: 'text/*', ...bodyParserConfig.text }))
     .use(
@@ -60,13 +56,12 @@ module.exports = (config, options) => {
         limits: { fileSize },
         dest: fileDest,
         ...bodyParserConfig.multer,
-      }).any()
+      }).any(),
     )
 
   const restrict = options.restrict || Restrict(config.eadmin)
 
   if (options.restful) {
-    global.MP = MP
     const rapi = require('express').Router()
     options.restful(logger, rapi, restrict)
     app.use('/', rapi)
@@ -88,33 +83,7 @@ module.exports = (config, options) => {
   const server = http.Server(app)
 
   if (options.io) {
-    const io = require('socket.io')(server, options.ioOption)
-
-    if (options.redis) {
-        const { createClient } = require('redis')
-        const { createAdapter } = require('@socket.io/redis-adapter')
-
-        const pubClient = createClient(options.redis)
-        const subClient = pubClient.duplicate()
-
-        io.adapter(createAdapter(pubClient, subClient))
-    }
-
-    app.get('/socket.html', (req, res) => {
-      res.sendFile(__dirname + '/socket.html')
-    })
-
-    io.use((socket, next) => {
-        const query = socket.handshake.query
-        const { access_token } = query
-        if (!access_token) {
-            return next(new Error('access_token required'))
-        }
-        next()
-    })
-    options.io(logger, io)
-
-    global.IO = io
+    options.io(logger, server, restrict)
   }
 
   const time = process.hrtime()
@@ -124,6 +93,9 @@ module.exports = (config, options) => {
   server.listen(port, () => {
     const diff = process.hrtime(time)
     const second = (diff[0] * 1e9 + diff[1]) / 1e9
-    logger.log('\x1b[36m%s\x1b[0m', `[${version}] [${name}] [${new Date().toLocaleString()}] http service is listening on port ${port} in ${process.env.NODE_ENV} mode used ${second.toFixed(2)} seconds`)
+    logger.log(
+      '\x1b[36m%s\x1b[0m',
+      `[${version}] [${name}] [${new Date().toLocaleString()}] http service is listening on port ${port} in ${process.env.NODE_ENV} mode used ${second.toFixed(2)} seconds`,
+    )
   })
 }
