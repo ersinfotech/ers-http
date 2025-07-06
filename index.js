@@ -5,6 +5,7 @@ const cors = require('cors')
 const multer = require('multer')
 const Restrict = require('./@ersinfotech/restrict')
 const graphql = require('./graphql')
+const MP = require('./middleware-promise')
 
 module.exports = (config, options) => {
   process.env.NODE_ENV = process.env.NODE_ENV || 'development'
@@ -62,6 +63,7 @@ module.exports = (config, options) => {
   const restrict = options.restrict || Restrict(config.eadmin)
 
   if (options.restful) {
+    global.MP = MP
     const rapi = require('express').Router()
     options.restful(logger, rapi, restrict)
     app.use('/', rapi)
