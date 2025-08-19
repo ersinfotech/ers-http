@@ -3,7 +3,7 @@ const https = require('https')
 
 const jsonreq = (params = {}) =>
   new Promise((resolve, reject) => {
-    const { protocol, hostname, port, pathname, search } = URL.parse(params.url)
+    const { protocol, hostname, port, pathname, search } = new URL(params.url)
 
     let agent = null
 
