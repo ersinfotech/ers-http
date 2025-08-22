@@ -30,8 +30,7 @@ const api = {
     if (delaySeconds) {
       await delay(delaySeconds)
     }
-    console.log({ message })
-    return message
+    return { message, session }
   },
 }
 
@@ -67,6 +66,10 @@ const config = {
   clientId: 'miner',
   eadmin: {
     baseUrl: 'http://eadmin-api.ersinfotech.com',
+    oauth: {
+      crypt_key: 'thisiscryptkey',
+      sign_key: 'thisissignkey',
+    },
   },
 }
 

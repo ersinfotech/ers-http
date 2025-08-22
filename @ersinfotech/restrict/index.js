@@ -1,5 +1,5 @@
 const jsonreq = require('../../jsonreq')
-var { OAuth2Provider } = require('oauth2-provider')
+var { OAuth2Provider } = require('./oauth2-provider')
 
 module.exports = function Restrict(options) {
   options = options || {}
@@ -9,24 +9,6 @@ module.exports = function Restrict(options) {
 
   if (oauthSetting) {
     oauth = new OAuth2Provider(oauthSetting)
-    oauth.on('access_token', (req, info, next) => {
-      var { user_id, client_id, grant_date, extra_data } = info
-      if (
-        grant_date.getTime() +
-          (oauthSetting.accessTokenTTL || 12 * 60 * 60 * 1000) <
-        Date.now()
-      ) {
-        return next(new Error('access_token timeout'))
-      }
-      extra_data = extra_data || {}
-      req.session = {
-        ...req.session,
-        ...extra_data,
-        userId: user_id,
-        clientId: client_id,
-      }
-      next()
-    })
   } else if (!baseUrl) {
     throw new Error('oauth or baseUrl required in restrict middleware')
   }
@@ -53,7 +35,12 @@ module.exports = function Restrict(options) {
       }
 
       if (oauth) {
-        oauth.login()(req, res, next)
+        var data = oauth.parse(access_token)
+        req.session = {
+          ...req.session,
+          ...data,
+        }
+        return next()
       } else {
         jsonreq({
           url: baseUrl + '/account/me/id' + `?access_token=${access_token}`,
