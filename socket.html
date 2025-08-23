@@ -2,12 +2,12 @@
 <!-- support socket.io 2.x.x -->
 <!-- <script src="https://cdn.socket.io/socket.io-2.0.0.js"></script> -->
 <script>
-    const path = location.pathname.replace('/socket.html', '')
-    const connect = (access_token) => {
-        const url = `?access_token=${encodeURIComponent(access_token)}`
-        const socket = io.connect(url, {path: `${path}/socket.io/`})
-        socket.on('hello', console.log)
-        window.socket = socket
-    }
-    connect()
+  const path = location.pathname.replace('/socket.html', '')
+  const connect = (access_token) => {
+    const url = `?access_token=${encodeURIComponent(access_token)}`
+    const socket = io.connect(url, { path: `${path}/socket.io/` })
+    socket.on('hello', console.log)
+    window.socket = socket
+  }
+  connect()
 </script>
