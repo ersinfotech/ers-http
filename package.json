@@ -21,7 +21,7 @@
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
-    "graphql-ready": "^8.0.0",
+    "graphql-ready": "^8.0.1",
     "multer": "^2.0.1"
   },
   "devDependencies": {
