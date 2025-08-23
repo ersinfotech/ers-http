@@ -1,350 +1,199 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title></title>
-    <style type="text/css">
-      html,
-      body,
-      div,
-      span,
-      applet,
-      object,
-      iframe,
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6,
-      p,
-      blockquote,
-      pre,
-      a,
-      abbr,
-      acronym,
-      address,
-      big,
-      cite,
-      code,
-      del,
-      dfn,
-      em,
-      img,
-      ins,
-      kbd,
-      q,
-      s,
-      samp,
-      small,
-      strike,
-      strong,
-      sub,
-      sup,
-      tt,
-      var,
-      b,
-      u,
-      i,
-      center,
-      dl,
-      dt,
-      dd,
-      ol,
-      ul,
-      li,
-      fieldset,
-      form,
-      label,
-      legend,
-      table,
-      caption,
-      tbody,
-      tfoot,
-      thead,
-      tr,
-      th,
-      td,
-      article,
-      aside,
-      canvas,
-      details,
-      embed,
-      figure,
-      figcaption,
-      footer,
-      header,
-      hgroup,
-      menu,
-      nav,
-      output,
-      ruby,
-      section,
-      summary,
-      time,
-      mark,
-      audio,
-      video {
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <style>
+      * {
         margin: 0;
         padding: 0;
-        border: 0;
-        font-size: 100%;
-        font: inherit;
-        vertical-align: baseline;
-      }
-      article,
-      aside,
-      details,
-      figcaption,
-      figure,
-      footer,
-      header,
-      hgroup,
-      menu,
-      nav,
-      section {
-        display: block;
-      }
-      body {
-        line-height: 1;
-      }
-      ol,
-      ul {
-        list-style: none;
-      }
-      blockquote,
-      q {
-        quotes: none;
-      }
-      blockquote:before,
-      blockquote:after,
-      q:before,
-      q:after {
-        content: '';
-        content: none;
-      }
-      table {
-        border-collapse: collapse;
-        border-spacing: 0;
-      }
-      body {
-        background: #e9e9e9;
-        font-family: arial, sans-serif;
-        text-align: center;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-      }
-      .form {
-        position: relative;
-        background: #ffffff;
-        width: 285px;
-        margin: 40px auto 0;
-        padding: 40px;
-        border-top: 5px solid #33b5e5;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-        -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
-        -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
-        box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
-      }
-      .form .switch {
-        cursor: pointer;
-        position: absolute;
-        top: 0;
-        right: 0;
-        background: #33b5e5;
-        width: 30px;
-        height: 30px;
-        margin: -5px 0 0;
-        -webkit-border-radius: 0 3px 0 3px;
-        -moz-border-radius: 0 3px 0 3px;
-        border-radius: 0 3px 0 3px;
-        color: #ffffff;
-        font-size: 12px;
-        line-height: 30px;
-        text-align: center;
-      }
-      .form .switch .tooltip {
-        position: absolute;
-        top: 5px;
-        right: -65px;
-        display: block;
-        background: rgba(0, 0, 0, 0.6);
-        width: auto;
-        padding: 5px;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-        color: rgba(255, 255, 255, 0.6);
-        font-size: 10px;
-        font-weight: 600;
-        line-height: 1;
-        text-align: left;
-        text-transform: uppercase;
-      }
-      .form .switch .tooltip:before {
-        content: '';
-        position: absolute;
-        top: 5px;
-        left: -5px;
-        display: block;
-        border-top: 5px solid transparent;
-        border-bottom: 5px solid transparent;
-        border-right: 5px solid rgba(0, 0, 0, 0.6);
-      }
-      .form .register {
-        display: none;
-      }
-      .form h2 {
-        margin: 0 0 20px;
-        line-height: 1;
-        color: #33b5e5;
-        font-size: 18px;
-        font-weight: 400;
-      }
-      .form .alert {
-        position: relative;
-        background: #f3f3f3;
-        color: #666666;
-        font-size: 12px;
-        margin-bottom: 20px;
-        padding: 15px;
-        text-align: left;
-      }
-      .form .alert .fa-times-circle {
-        cursor: pointer;
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        display: block;
-        width: 16px;
-        height: 16px;
-        line-height: 16px;
-        margin-top: -8px;
-        float: right;
-      }
-      .form input {
-        outline: none;
-        display: block;
-        width: 100%;
-        margin: 0 0 20px;
-        padding: 10px 15px;
-        border: 1px solid #d9d9d9;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-        color: #ccc;
-        font-family: arial;
-        -webkti-box-sizing: border-box;
-        -moz-box-sizing: border-box;
         box-sizing: border-box;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
+      }
+
+      :root {
+        --bg-color: #f5f8ff;
+        --container-bg: #ffffff;
+        --text-color: #2d3748;
+        --secondary-text: #718096;
+        --input-bg: #f7fafc;
+        --input-border: #e2e8f0;
+        --accent-color: #667eea;
+        --accent-hover: #5a67d8;
+        --shadow-color: rgba(0, 0, 0, 0.05);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg-color: #1a202c;
+          --container-bg: #2d3748;
+          --text-color: #e2e8f0;
+          --secondary-text: #a0aec0;
+          --input-bg: #4a5568;
+          --input-border: #4a5568;
+          --accent-color: #667eea;
+          --accent-hover: #7f9cf5;
+          --shadow-color: rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      body {
+        background-color: var(--bg-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        color: var(--text-color);
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
+      }
+
+      .login-container {
+        background: var(--container-bg);
+        border-radius: 12px;
+        box-shadow: 0 10px 25px var(--shadow-color);
+        width: 100%;
+        max-width: 400px;
+        padding: 40px;
+        transition:
+          background-color 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+
+      .login-header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .login-header h1 {
+        font-weight: 600;
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+
+      .login-header p {
+        color: var(--secondary-text);
+        font-size: 16px;
+        transition: color 0.3s ease;
+      }
+
+      .login-form {
+        width: 100%;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
         font-size: 14px;
-        font-wieght: 400;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        -webkit-transition: all 0.3s linear 0s;
-        -moz-transition: all 0.3s linear 0s;
-        -ms-transition: all 0.3s linear 0s;
-        -o-transition: all 0.3s linear 0s;
-        transition: all 0.3s linear 0s;
+        margin-bottom: 8px;
+        color: var(--secondary-text);
+        font-weight: 500;
+        transition: color 0.3s ease;
       }
-      .form input:focus {
-        color: #333333;
-        border: 1px solid #33b5e5;
+
+      .form-input {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid var(--input-border);
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s;
+        background-color: var(--input-bg);
+        color: var(--text-color);
       }
-      .form button {
+
+      .form-input:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      }
+
+      .btn {
+        width: 100%;
+        padding: 14px;
+        background: var(--accent-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
         cursor: pointer;
-        background: #33b5e5;
-        width: 100%;
-        padding: 10px 15px;
-        margin-bottom: 25px;
-        border: 0;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
-        color: #ffffff;
-        font-family: arial;
+        transition: background 0.3s;
+        margin-top: 10px;
+      }
+
+      .btn:hover {
+        background: var(--accent-hover);
+      }
+
+      .login-footer {
+        text-align: center;
+        margin-top: 25px;
         font-size: 14px;
-        font-weight: 400;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        -webkit-transition: all 0.3s linear 0s;
-        -moz-transition: all 0.3s linear 0s;
-        -ms-transition: all 0.3s linear 0s;
-        -o-transition: all 0.3s linear 0s;
-        transition: all 0.3s linear 0s;
+        color: var(--secondary-text);
+        transition: color 0.3s ease;
       }
-      .form button:hover {
-        background: #1a9bcb;
-      }
-      .form footer {
-        background: #f2f2f2;
-        width: 100%;
-        padding: 15px 40px;
-        margin: 0 0 -40px -40px;
-        -webkit-border-radius: 0 0 3px 3px;
-        -moz-border-radius: 0 0 3px 3px;
-        border-radius: 0 0 3px 3px;
-        color: #666666;
-        font-size: 12px;
-        text-align: center;
-      }
-      .form footer a {
-        color: #333333;
+
+      .login-footer a {
+        color: var(--accent-color);
         text-decoration: none;
       }
-      .info {
-        width: 300px;
-        margin: 25px auto;
-        text-align: center;
+
+      .login-footer a:hover {
+        text-decoration: underline;
       }
-      .info h1 {
-        margin: 0;
-        padding: 0;
-        font-size: 24px;
-        font-weight: 400;
-        color: #333333;
-      }
-      .info span {
-        color: #666666;
-        font-size: 12px;
-      }
-      .info span a {
-        color: #000000;
-        text-decoration: none;
-      }
-      .info span .fa {
-        color: #33b5e5;
-      }
-      .info span .spoilers {
-        color: #999999;
-        margin-top: 5px;
-        font-size: 10px;
+
+      @media (max-width: 480px) {
+        .login-container {
+          padding: 30px 20px;
+        }
       }
     </style>
   </head>
-
   <body>
-    <div class="info">
-      <h1 id="title">GraphQL</h1>
-    </div>
-    <div class="form aniamted bounceIn">
-      <div class="login">
-        <h2>Login To Your Account</h2>
-        <form action="login" method="post">
-          <input placeholder="Email" type="text" name="email" />
-          <input placeholder="Password" type="password" name="password" />
-          <button>Login</button>
-        </form>
+    <div class="login-container">
+      <div class="login-header">
+        <h1>Welcome Back</h1>
+        <p>Data In, Value Out</p>
       </div>
-      <footer></footer>
-    </div>
 
-    <script type="text/javascript">
-      var title = location.hostname.replace(/\..*$/, '')
-      document.title = title
-      document.getElementById('title').innerHTML = title
-    </script>
+      <form class="login-form" method="post">
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            name="email"
+            class="form-input"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            class="form-input"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn">Sign In</button>
+
+        <div class="login-footer">
+          <p>Hello ERS</p>
+        </div>
+      </form>
+    </div>
   </body>
 </html>
