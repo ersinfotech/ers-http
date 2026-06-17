@@ -47,14 +47,20 @@ const resolver = {
   },
 }
 
-const onfinish = async (item1, item2) => {
-  console.log({ item1, item2 })
+const extensions = {
+  onstart: async (item1, item2) => {
+    console.log('onstart', { item1, item2 })
+  },
+
+  onfinish: async (item1, item2) => {
+    console.log('onfinish', { item1, item2 })
+  },
 }
 
 const graphql = (logger) => {
   logger.info('graphql started')
 
-  return { api, schema, resolver, onfinish }
+  return { api, schema, resolver, extensions }
 }
 
 const restful = (logger, router, restrict) => {

@@ -4,7 +4,7 @@ const GraphiqlAuth = require('./@ersinfotech/graphiql-auth')
 module.exports = (
   app,
   config,
-  { schema, api, resolver, gql = [], onfinish },
+  { schema, api, resolver, gql = [], extensions },
   restrict,
 ) => {
   const graphLogin = (callbackUrl) =>
@@ -32,7 +32,7 @@ module.exports = (
 
   app.route('/login').get(graphin.get).post(graphin.post)
 
-  const graphql = graphiql({ schema, api, resolver, onfinish })
+  const graphql = graphiql({ schema, api, resolver, extensions })
 
   app.use('/', graphiqlGetNotFound, restrict(), gql, graphql)
 }
