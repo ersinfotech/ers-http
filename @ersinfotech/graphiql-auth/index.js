@@ -1,8 +1,10 @@
+const { readFileSync } = require('fs')
 const jsonreq = require('../../jsonreq')
+const login_html = readFileSync(__dirname + '/login.html', 'utf-8')
 
 module.exports = ({ eadminBaseUrl, clientId, callbackUrl }) => ({
   get: (req, res) => {
-    res.sendFile(__dirname + '/login.html')
+    return res.send(login_html)
   },
   post: (req, res, next) => {
     const { email, password } = req.body

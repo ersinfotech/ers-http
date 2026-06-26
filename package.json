@@ -4,7 +4,7 @@
   "description": "quick http for ers",
   "main": "index.js",
   "scripts": {
-    "start": "tsx watch example.js"
+    "start": "node --watch example.js"
   },
   "repository": {
     "type": "git",
@@ -18,13 +18,10 @@
   },
   "homepage": "https://github.com/ersinfotech/ers-http#readme",
   "dependencies": {
-    "body-parser": "^2.2.0",
+    "body-parser": "^2.3.0",
     "cors": "^2.8.5",
-    "express": "^5.1.0",
+    "express": "^5.2.1",
     "graphql-ready": "^8.0.4",
-    "multer": "^2.0.1"
-  },
-  "devDependencies": {
-    "tsx": "^4.20.3"
+    "multer": "^2.2.0"
   }
 }
