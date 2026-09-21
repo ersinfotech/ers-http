@@ -1,4 +1,4 @@
-const { graphiql } = require('graphql-ready')
+const { graphiql } = require('./graphql-ready')
 const GraphiqlAuth = require('./@ersinfotech/graphiql-auth')
 
 module.exports = (

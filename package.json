@@ -18,10 +18,10 @@
   },
   "homepage": "https://github.com/ersinfotech/ers-http#readme",
   "dependencies": {
+    "@graphql-tools/schema": "^10.1.1",
     "body-parser": "^2.3.0",
     "cors": "^2.8.5",
     "express": "^5.2.1",
-    "graphql-ready": "^8.0.4",
     "multer": "^2.2.0"
   }
 }
