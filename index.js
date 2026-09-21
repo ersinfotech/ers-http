@@ -36,6 +36,7 @@ module.exports = (config, options) => {
 
   const app = express()
   app.enable('trust proxy')
+  app.set('query parser', 'extended')
 
   if (options['view engine']) {
     app.set('view engine', options['view engine'])
